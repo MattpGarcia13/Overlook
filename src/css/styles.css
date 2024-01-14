@@ -20,6 +20,14 @@ body {
   background-position: center;
 }
 
+/* .homepage-title {
+  display: flex;
+  justify-content: center;
+  font-size: 2.8em;
+  color: red;
+  align-self: flex-start;
+} */
+
 header {
   position: fixed;
   top: 0;
@@ -30,6 +38,12 @@ header {
   justify-content: space-between;
   align-items: center;
   z-index: 99;
+  backdrop-filter: blur(9px);
+  text-shadow:
+    1.2px 1.2px 0 #000,
+    -1.2px 1.2px 0 #000,
+    -1.2px -1.2px 0 #000,
+    1.2px -1.2px 0 #000;
 }
 
 .logo {
@@ -84,6 +98,14 @@ header {
 .navigation .btnLogin-popup:hover {
   background: white;
   color: #162938;
+}
+
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
 }
 
 .wrapper {
