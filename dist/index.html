@@ -34,8 +34,14 @@
       <p>Testing 1</p>
     </div>
     <div id="bookingsContent" data-tab-content class="tab">
-      <h1>Book a night with us!</h1>
-      <p>Testing 2</p>
+      <div id="bookingsSubtabs">
+        <button id="planTrips">Test1</button>
+        <button id="pastTrips">Test2</button>
+        <button id="upcomingTrips">Test3</button>
+      </div>
+      <section id="planTripSection">Add Trip Form</section>
+      <section id="pastTripSection" hidden>Past Trips</section>
+      <section id="upcomingTripSection" hidden>Upcoming Trips</section>
     </div>
     <div id="contactContent" data-tab-content class="tab">
       <h1>Contact Us</h1>
@@ -63,7 +69,7 @@
           <label><input type="checkbox"> Remember Me</label>
           <a href="#">Forgot Password?</a>
         </div>
-        <button type="submit" class="btn">Login</button>
+        <button id="loginButton" type="submit" class="btn">Login</button>
         <div class="login-register">
           <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
         </div>
