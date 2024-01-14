@@ -10,7 +10,9 @@ That's right, _clone_ not fork. You will use this repo multiple times, but you c
 1. Copy the address that you would use to clone down this repo - something like `git@github.com:...`
 1. Add this remote to your cloned down repo: `git remote add origin [address you copied in the previous step]` - do not include the brackets
 
-Now try to commit something (just add a line in the README) and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub.
+Now try to commit something (just add a line in the README) and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub. 
+
+Added this line for testing the setup.
 
 ## Setup
 
