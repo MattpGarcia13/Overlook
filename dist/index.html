@@ -26,6 +26,10 @@
     <h1>Hotel Name</h1>
   </div> -->
 
+  <div class="user-greeting" id="userGreeting">
+
+  </div>
+
   <div class="tab-content">
     <div id="homeContent" data-tab-content class="tab active"></div>
     <div id="aboutContent" data-tab-content class="tab">
@@ -67,12 +71,12 @@
       <form action="#">
         <div class="input-box">
           <span class="icon"><ion-icon name="mail"></ion-icon></span>
-          <input type="email" required>
-          <label>Email</label>
+          <input type="text" name="usernameLogin" id="usernameLogin" required>
+          <label for="usernameLogin">Username</label>
         </div>
         <div class="input-box">
           <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-          <input type="password" required>
+          <input type="password" id="passwordLogin" required>
           <label>Password</label>
         </div>
         <div class="remember-forgot">

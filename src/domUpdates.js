@@ -3,6 +3,7 @@ export const upcomingTripSection = document.querySelector('#upcomingTripSection'
 export const planTripSection = document.querySelector('#planTripSection');
 export const entryDate = document.querySelector('#date');
 export const formView = document.querySelector('#date');
+const userGreeting = document.querySelector('#userGreeting');
 
 
 export const locateBookedRooms = (bookings) => {
@@ -96,6 +97,11 @@ export const showUpcomingTrips = (userID, bookings) => {
     })
 }
 
-// entryDate.addEventListener('change', showAvailableRooms);
+export const welcomeUser = (userID, users) => {
+    const matchingUser = users.find(currentUser => {
+        return currentUser.id === userID
+    })
+    userGreeting.innerHTML = `Welcome ${matchingUser.name}!`
+}
 
 
