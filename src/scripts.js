@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
 
 const loginUser = (event) => {
     event.preventDefault()
-    console.log(usernameLogin.value, passwordLogin.value)
+    // console.log(usernameLogin.value, passwordLogin.value)
     const regex = new RegExp(/^customer\d{1,}$/);
     if (regex.test(usernameLogin.value) && passwordLogin.value === 'overlook2021') {
         currentCustomerID = Number(usernameLogin.value.split('customer')[1])
