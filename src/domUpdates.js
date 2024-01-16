@@ -1,5 +1,51 @@
-const pastTripSection = document.querySelector('#pastTripSection');
-const upcomingTripSection = document.querySelector('#upcomingTripSection');
+export const pastTripSection = document.querySelector('#pastTripSection');
+export const upcomingTripSection = document.querySelector('#upcomingTripSection');
+export const planTripSection = document.querySelector('#planTripSection');
+export const entryDate = document.querySelector('#date');
+export const formView = document.querySelector('#date');
+const userGreeting = document.querySelector('#userGreeting');
+
+
+export const locateBookedRooms = (bookings) => {
+    let arrivalDate = entryDate.value
+        .split('-')
+        .join('/');
+
+    return bookings.filter((booking) => booking.date === arrivalDate)
+        .map((rooms) => roomNumber)
+}
+
+export const locateUnbookedRooms = (bookedRooms, rooms) => {
+    return rooms.filter((room) => !bookedRooms.includes(room.number));
+}
+
+export const locateAvailableRooms = (bookings, rooms) => {
+    const amountOfBeds = document.getElementById('bed-number').value;
+    const locateBookedRoom = locateBookedRooms(bookings)
+    const locateUnbookedRoom = locateUnbookedRooms(locateBookedRoom, rooms)
+
+    return locateUnbookedRoom.filter((room) => room.numBeds >= amountOfBeds)
+}
+
+export function showAvailableRooms(bookings, rooms) {
+    const availableRooms = locateAvailableRooms(bookings, rooms);
+    formView.classList.add('hidden');
+    planTripSection.classList.remove('hidden');
+    planTripSection.innerHTML = '';
+    if (availableRooms.length > 0) {
+        planTripSection.innerHTML += `
+        ${availableRooms.map(room => `
+            <div class="available-room-card">
+                <p>Room Number: ${room.number}</p>
+                <p>Room Type: ${room.roomType}</p>
+                <p>Cost Per Night: $${room.costPerNight}</p>
+            </div>
+        `).join('')}
+    `;
+    } else {
+        planTripSection.innerHTML += '<p>No available rooms.</p>';
+    }
+}
 
 export const showPastTrips = (userID, bookings) => {
     const currentUsersBookings = bookings.filter(currentBooking => {
@@ -50,3 +96,12 @@ export const showUpcomingTrips = (userID, bookings) => {
         </article>`
     })
 }
+
+export const welcomeUser = (userID, users) => {
+    const matchingUser = users.find(currentUser => {
+        return currentUser.id === userID
+    })
+    userGreeting.innerHTML = `Welcome ${matchingUser.name}!`
+}
+
+
