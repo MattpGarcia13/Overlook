@@ -33,6 +33,9 @@ let allCustomers
 let bookings
 let rooms
 let currentCustomerID
+let customerRooms = []
+let customerBookings;
+let totalCost
 
 window.addEventListener('load', () => {
     wrapper.classList.add('active-popup');
@@ -46,7 +49,10 @@ const loginUser = (event) => {
     if (regex.test(usernameLogin.value) && passwordLogin.value === 'overlook2021') {
         currentCustomerID = Number(usernameLogin.value.split('customer')[1])
         showPastTrips(currentCustomerID, bookings)
+        customerBookings = showPastTrips(currentCustomerID, bookings)
         showUpcomingTrips(currentCustomerID, bookings)
+        findCustomerRooms(customerBookings)
+        totalCostCalc()
         welcomeUser(currentCustomerID, allCustomers)
     } else {
         // handle authentification error
@@ -121,6 +127,30 @@ const toggleBookingsSection = (tabName) => {
         upcomingTripSection.hidden = false;
     }
 }
+
+export const findCustomerRooms = (customerBookings) => {
+
+    customerBookings.forEach(booking => {
+        rooms.map(room => {
+            if (room.number === booking.roomNumber){
+                customerRooms.push(room)
+            }
+        })
+    })
+
+    console.log('Rooms: ', customerRooms)
+
+}
+
+function totalCostCalc() {
+    let sum = customerRooms.reduce((acc, room) =>{
+        acc += room.costPerNight
+        return acc
+    }, 0)
+        totalCost += sum
+    return totalCost
+}
+
 
 
 planTripsBtn.addEventListener('click', () => {

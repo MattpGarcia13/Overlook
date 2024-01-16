@@ -4,6 +4,8 @@ export const planTripSection = document.querySelector('#planTripSection');
 export const entryDate = document.querySelector('#date');
 export const formView = document.querySelector('#date');
 const userGreeting = document.querySelector('#userGreeting');
+const bookingsTab = document.querySelector('.bookingsTabs');
+
 
 
 export const locateBookedRooms = (bookings) => {
@@ -70,6 +72,7 @@ export const showPastTrips = (userID, bookings) => {
             <p>Booking Room Number: ${booking.roomNumber}</p>
         </article>`
     })
+    return currentUsersBookings
 }
 
 export const showUpcomingTrips = (userID, bookings) => {
@@ -103,5 +106,13 @@ export const welcomeUser = (userID, users) => {
     })
     userGreeting.innerHTML = `Welcome ${matchingUser.name}!`
 }
+
+bookingsTab.addEventListener('click', () => {
+    if (bookingsTab.classList.contains('active')) {
+        document.body.style.background = 'url(\'../images/stanleyhotelhallway.png\') no-repeat';
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+    }
+});
 
 

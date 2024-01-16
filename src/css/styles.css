@@ -13,9 +13,7 @@
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
   min-height: 100vh;
   position: relative;
   background: url('../images/stanleyhotel.png') no-repeat;
@@ -118,7 +116,9 @@ header {
 }
 
 .wrapper {
-  position: fixed;
+  position: absolute;
+  top: 10%;
+  left: 75%;
   width: 400px;
   height: 440px;
   background: transparent;
@@ -292,23 +292,48 @@ header {
 
 .bookingsTabs {
   position: relative;
-  z-index: 1;
-  bottom: 280px;
+  margin-top: 11.5vh;
+  left: 31.8vw;
   padding-right: 5px;
   padding-left: 5px;
   margin-right: 20px;
   font-size: 1.3rem;
-  color: var(--clr-neon);
   background-color: transparent;
   border: currentColor 0.125em solid;
   cursor: pointer;
   text-decoration: none;
   border-radius: 0.25em;
-  /* text-shadow: 0 0 0.125em white, 0 0 0.25em currentColor; */
+  /* text-shadow: 0 0 0.125em white, 0 0 0.25em currentColor;
+  color: var(--clr-neon); */
+}
+
+#bookingsErrorDisplay {
+  position: absolute;
+  left: 30vw;
+  top: 40vh;
+  font-size: 5em;
+  text-shadow:
+    1.2px 1.2px 0 #ff0000,
+    -1.2px 1.2px 0 #ff0000,
+    -1.2px -1.2px 0 #ff0000,
+    1.2px -1.2px 0 #ff0000;
 }
 
 #userGreeting {
   position: relative;
-  z-index: 1;
-  bottom: 300px;
+  top: 10vh;
+  left: 38.5vw;
+  color: white;
+  font-size: 2em;
+  text-shadow:
+    1.8px 1.8px 0 #000,
+    -1.8px 1.8px 0 #000,
+    -1.8px -1.8px 0 #000,
+    1.8px -1.8px 0 #000;
+}
+
+#plannedTripForm {
+  position: relative;
+  top: 2vh;
+  left: 37vw;
 }
