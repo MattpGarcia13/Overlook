@@ -1,3 +1,9 @@
+// ===================================================================
+// ===============   variables and imports   =========================
+// ===================================================================
+import { displayInfoProper } from "./scripts";
+
+
 export const pastTripSection = document.querySelector('#pastTripSection');
 export const upcomingTripSection = document.querySelector('#upcomingTripSection');
 export const planTripSection = document.querySelector('#planTripSection');
@@ -7,6 +13,9 @@ const userGreeting = document.querySelector('#userGreeting');
 const bookingsTab = document.querySelector('.bookingsTabs');
 
 
+// ===================================================================
+// ===============   functions   =====================================
+// ===================================================================
 
 export const locateBookedRooms = (bookings) => {
     let arrivalDate = entryDate.value
@@ -14,7 +23,7 @@ export const locateBookedRooms = (bookings) => {
         .join('/');
 
     return bookings.filter((booking) => booking.date === arrivalDate)
-        .map((rooms) => roomNumber)
+        .map((rooms) => rooms.roomNumber)
 }
 
 export const locateUnbookedRooms = (bookedRooms, rooms) => {
@@ -37,19 +46,21 @@ export function showAvailableRooms(bookings, rooms) {
     if (availableRooms.length > 0) {
         planTripSection.innerHTML += `
         ${availableRooms.map(room => `
-            <div class="available-room-card">
-                <p>Room Number: ${room.number}</p>
+            <div class="booking-book-card">
+                <p id='room-number'>Room Number: ${room.number}</p>
                 <p>Room Type: ${room.roomType}</p>
                 <p>Cost Per Night: $${room.costPerNight}</p>
+                <button id='bookRoomButton'>Book Room</button>
             </div>
         `).join('')}
     `;
     } else {
-        planTripSection.innerHTML += '<p>No available rooms.</p>';
+        planTripSection.innerHTML += '<p id="apology">So Sorry! We have no available rooms at that time, please refresh and find another date!</p>';
     }
 }
 
 export const showPastTrips = (userID, bookings) => {
+    
     const currentUsersBookings = bookings.filter(currentBooking => {
         if (currentBooking.userID === userID) {
             return currentBooking
@@ -61,18 +72,19 @@ export const showPastTrips = (userID, bookings) => {
         if (thisBookingsDate < todaysDate) {
             return currentBooking
         }
-    })
-
+        
+    });
     pastTripSection.innerHTML = ''
-    pastBookings.forEach(booking => {
-        pastTripSection.innerHTML += `
-        <article> 
-            <p>Booking ID: ${booking.id}</p>
-            <p>Booking Date: ${new Date(booking.date).toLocaleString()}</p>
-            <p>Booking Room Number: ${booking.roomNumber}</p>
-        </article>`
-    })
-    return currentUsersBookings
+
+pastBookings.forEach(booking => {
+    pastTripSection.innerHTML += `
+    <article class='booking-card'> 
+    <p>Booking ID: ${booking.id}</p>
+    <p>Booking Date: ${new Date(booking.date).toLocaleString()}</p>
+    <p>Booking Room Number: ${booking.roomNumber}</p>
+    </article>`
+})
+return currentUsersBookings
 }
 
 export const showUpcomingTrips = (userID, bookings) => {
@@ -114,5 +126,3 @@ bookingsTab.addEventListener('click', () => {
         document.body.style.backgroundPosition = 'center';
     }
 });
-
-

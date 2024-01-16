@@ -27,13 +27,7 @@ body {
   background-position: center;
 }
 
-/* .homepage-title {
-  display: flex;
-  justify-content: center;
-  font-size: 2.8em;
-  color: red;
-  align-self: flex-start;
-} */
+
 
 header {
   position: fixed;
@@ -292,7 +286,7 @@ header {
 
 .bookingsTabs {
   position: relative;
-  margin-top: 11.5vh;
+  margin-top: 6vh;
   left: 31.8vw;
   padding-right: 5px;
   padding-left: 5px;
@@ -336,4 +330,26 @@ header {
   position: relative;
   top: 2vh;
   left: 37vw;
+}
+
+#apology {
+  position: relative;
+  font-size: 1.8em;
+}
+
+.booking-card {
+  border-radius: 10px;
+  color: red;
+}
+
+#about {
+  position: relative;
+  top: 20vh;
+  left: 48vw;
+  color: red;
+  font-size: 1.7em;
+}
+
+.hidden {
+  display: none;
 }

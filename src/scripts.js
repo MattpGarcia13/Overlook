@@ -1,14 +1,10 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
+// ===================================================================
+// ===============   variables and imports   =========================
+// ===================================================================
 import './css/styles.css';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 import { fetchData } from './api-calls';
 import { showPastTrips, showUpcomingTrips, showAvailableRooms, welcomeUser } from './domUpdates';
-
 
 const tabs = document.querySelectorAll('.tablinks')
 const tabContents = document.querySelectorAll('.tab')
@@ -29,6 +25,9 @@ const submitButton = document.querySelector('#submit-button');
 const usernameLogin = document.querySelector('#usernameLogin');
 const passwordLogin = document.querySelector('#passwordLogin');
 
+const aboutButton = document.querySelector('#about')
+const aboutSection = document.querySelector('#aboutContent')
+
 let allCustomers
 let bookings
 let rooms
@@ -36,6 +35,11 @@ let currentCustomerID
 let customerRooms = []
 let customerBookings;
 let totalCost
+let bookedDate
+
+// ===================================================================
+// ===============   functions   =====================================
+// ===================================================================
 
 window.addEventListener('load', () => {
     wrapper.classList.add('active-popup');
@@ -52,28 +56,11 @@ const loginUser = (event) => {
         customerBookings = showPastTrips(currentCustomerID, bookings)
         showUpcomingTrips(currentCustomerID, bookings)
         findCustomerRooms(customerBookings)
-        totalCostCalc()
         welcomeUser(currentCustomerID, allCustomers)
     } else {
         // handle authentification error
     }
 }
-
-registerLink.addEventListener('click', () => {
-    wrapper.classList.add('active');
-})
-
-loginLink.addEventListener('click', () => {
-    wrapper.classList.remove('active');
-})
-
-btnPopup.addEventListener('click', () => {
-    wrapper.classList.add('active-popup');
-})
-
-iconClose.addEventListener('click', () => {
-    wrapper.classList.remove('active-popup');
-})
 
 function retrieveData() {
     fetchData()
@@ -94,6 +81,46 @@ function retrieveData() {
             rooms = data[2].rooms;
         })
         .catch(err => console.log(err.message, err));
+}
+
+const postRequest = (url, number, bookDate) => {
+
+    const data = {
+        userID: parseInt(currentCustomerID),
+        date: `${bookDate.value.replaceAll('-', '/')}`,
+        roomNumber: parseInt(number),
+    };
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(data => {
+            bookings.push(data.newBooking)
+            showUpcomingTrips(currentCustomerID, bookings)
+            toggleBookingsSection() //changeView
+        })
+        .catch(err => console.log(err.message, err));
+}
+
+function postBooking(event) {
+    let currentbookedRoom = event.target.closest('.booking-book-card');
+    
+    if (currentbookedRoom) {
+        const roomNumberElement = currentbookedRoom.querySelector('#room-number');
+        if (roomNumberElement) {
+            const roomNumber = roomNumberElement.textContent.trim().replace('Room Number: ', '');
+            postRequest('http://localhost:3001/api/v1/bookings', roomNumber, bookedDate)
+            
+        } else {
+            console.error('Room number element not found in the selected room card.');
+        }
+    } else {
+        alert('Please select a room to book');
+    }
 }
 
 tabs.forEach(tab => {
@@ -117,14 +144,17 @@ const toggleBookingsSection = (tabName) => {
         planTripSection.hidden = false;
         pastTripSection.hidden = true;
         upcomingTripSection.hidden = true;
+        aboutButton.hidden = false;
     } else if (tabName === 'pastTrips') {
         planTripSection.hidden = true;
         pastTripSection.hidden = false;
         upcomingTripSection.hidden = true;
+        aboutButton.hidden = true;
     } else if (tabName === 'upcomingTrips') {
         planTripSection.hidden = true;
         pastTripSection.hidden = true;
         upcomingTripSection.hidden = false;
+        aboutButton.hidden = true;
     }
 }
 
@@ -132,30 +162,76 @@ export const findCustomerRooms = (customerBookings) => {
 
     customerBookings.forEach(booking => {
         rooms.map(room => {
-            if (room.number === booking.roomNumber){
+            if (room.number === booking.roomNumber) {
                 customerRooms.push(room)
             }
         })
     })
 
-    console.log('Rooms: ', customerRooms)
+    return customerRooms
 
 }
 
 function totalCostCalc() {
-    let sum = customerRooms.reduce((acc, room) =>{
+    return customerRooms.reduce((acc, room) => {
+        console.log(room.costPerNight)
         acc += room.costPerNight
         return acc
     }, 0)
-        totalCost += sum
-    return totalCost
+   
 }
 
+export const displayInfoProper = () => {
+    aboutSection.innerHTML = ''
 
+    const totalSign = document.createElement('h2');
+    let totalCosts = totalCostCalc()
+    totalSign.classList.add('totalSign');
+    totalSign.textContent = `Total Cost: $${totalCosts.toFixed(2)}`;
 
-planTripsBtn.addEventListener('click', () => {
-    toggleBookingsSection('planTrips')
+    aboutSection.appendChild(totalSign);
+    customerRooms.forEach(room => {
+        aboutSection.innerHTML += `
+        <article class='room-card'> 
+            <p id="room-number">Room Number: ${room.number}</p>
+            <p>Room Type: ${room.roomType}</p>
+            <p>Cost per Night: $${room.costPerNight}</p>
+        </article>`;
+    });
+}
+
+// ===================================================================
+// ===============   Event Listeners   ===============================
+// ===================================================================
+
+aboutButton.addEventListener('click', displayInfoProper) //changVariable name
+
+registerLink.addEventListener('click', () => {
+    wrapper.classList.add('active');
 })
+
+loginLink.addEventListener('click', () => {
+    wrapper.classList.remove('active');
+})
+
+btnPopup.addEventListener('click', () => {
+    wrapper.classList.add('active-popup');
+})
+
+iconClose.addEventListener('click', () => {
+    wrapper.classList.remove('active-popup');
+})
+
+planTripsBtn.addEventListener('click', (event) => {
+    toggleBookingsSection('planTrips')
+
+})
+planTripSection.addEventListener('click', (event) => {
+    if (event.target.id === 'bookRoomButton') {
+        postBooking(event);
+        toggleBookingsSection('upcomingTrips')
+    }
+});
 
 pastTripsBtn.addEventListener('click', () => {
     toggleBookingsSection('pastTrips')
@@ -169,5 +245,9 @@ loginButton.addEventListener('click', (event) => {
     loginUser(event)
 })
 
-submitButton.addEventListener('click', () => showAvailableRooms(bookings, rooms));
+submitButton.addEventListener('click', (event) => {
+    bookedDate = document.querySelector('#date');
+    event.preventDefault()
+    showAvailableRooms(bookings, rooms)
+});
 
