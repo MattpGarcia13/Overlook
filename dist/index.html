@@ -14,7 +14,7 @@
     <nav class="navigation">
       <ul>
         <a href="#" class="tablinks" id="home">Home</a>
-        <a href="#" class="tablinks" id="about">About</a>
+        <a href="#" class="tablinks" id="about2">About2</a>
         <a href="#" class="tablinks" id="bookings">Bookings</a>
         <a href="#" class="tablinks" id="contact">Contact</a>
         <button class="btnLogin-popup">Login</button>
@@ -22,29 +22,24 @@
     </nav>
   </header>
 
-  <!-- <div class="homepage-title">
-    <h1>Hotel Name</h1>
-  </div> -->
-
   <div class="user-greeting" id="userGreeting">
 
   </div>
 
   <div class="tab-content">
     <div id="homeContent" data-tab-content class="tab active"></div>
-    <div id="aboutContent" data-tab-content class="tab">
-      <h1>About Us</h1>
-      <p>Testing 1</p>
-    </div>
+    <ul>
+      <a href="#" id="about" data-tab-content hidden>About</a>
+      <div id="aboutContent">
+      </div>
+    </ul>
     <div id="bookingsContent" data-tab-content class="tab">
       <div id="bookingsSubtabs">
         <button class="bookingsTabs" id="planTrips">Plan your next stay</button>
         <button class="bookingsTabs" id="pastTrips">Your past trips</button>
         <button class="bookingsTabs" id="upcomingTrips">Your upcoming trips</button>
       </div>
-      <section id="bookingsErrorDisplay" hidden>
-        You must Login before entering!
-      </section>
+      <section id="bookingsErrorDisplay" hidden>Error! Must Login.</section>
       <section id="planTripSection" hidden>
         <form id="plannedTripForm">
           <label for="date">Date</label>
@@ -54,7 +49,9 @@
           <button type="submit" id="submit-button">Book Stay!</button>
         </form>
       </section>
-      <section id="pastTripSection" hidden></section>
+      <section id="pastTripSection" hidden>
+        <button id='displayInfoButton'></button>
+      </section>
       <section id="upcomingTripSection" hidden></section>
     </div>
     <div id="contactContent" data-tab-content class="tab">
@@ -70,7 +67,7 @@
       <h2>Login</h2>
       <form action="#">
         <div class="input-box">
-          <span class="icon"><ion-icon name="mail"></ion-icon></span>
+          <span class="icon"><ion-icon name="person"></ion-icon></span>
           <input type="text" name="usernameLogin" id="usernameLogin" required>
           <label for="usernameLogin">Username</label>
         </div>
@@ -122,6 +119,8 @@
 
 
   <script src="scripts.js" defer></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="bundle.js"></script>
 
 </body>
