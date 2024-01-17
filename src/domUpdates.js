@@ -46,7 +46,7 @@ export function showAvailableRooms(bookings, rooms) {
     if (availableRooms.length > 0) {
         planTripSection.innerHTML += `
         ${availableRooms.map(room => `
-            <div class="booking-book-card">
+            <div class="newBookingsCard">
                 <p id='room-number'>Room Number: ${room.number}</p>
                 <p>Room Type: ${room.roomType}</p>
                 <p>Cost Per Night: $${room.costPerNight}</p>
@@ -60,7 +60,7 @@ export function showAvailableRooms(bookings, rooms) {
 }
 
 export const showPastTrips = (userID, bookings) => {
-    
+
     const currentUsersBookings = bookings.filter(currentBooking => {
         if (currentBooking.userID === userID) {
             return currentBooking
@@ -72,19 +72,19 @@ export const showPastTrips = (userID, bookings) => {
         if (thisBookingsDate < todaysDate) {
             return currentBooking
         }
-        
+
     });
     pastTripSection.innerHTML = ''
 
-pastBookings.forEach(booking => {
-    pastTripSection.innerHTML += `
-    <article class='booking-card'> 
+    pastBookings.forEach(booking => {
+        pastTripSection.innerHTML += `
+    <article class='pastTripsCard'> 
     <p>Booking ID: ${booking.id}</p>
     <p>Booking Date: ${new Date(booking.date).toLocaleString()}</p>
     <p>Booking Room Number: ${booking.roomNumber}</p>
     </article>`
-})
-return currentUsersBookings
+    })
+    return currentUsersBookings
 }
 
 export const showUpcomingTrips = (userID, bookings) => {
@@ -104,7 +104,7 @@ export const showUpcomingTrips = (userID, bookings) => {
     upcomingTripSection.innerHTML = ''
     futureBookings.forEach(booking => {
         upcomingTripSection.innerHTML += `
-        <article> 
+        <article class="upcomingTripCards"> 
             <p>Booking ID: ${booking.id}</p>
             <p>Booking Date: ${new Date(booking.date).toLocaleString()}</p>
             <p>Booking Room Number: ${booking.roomNumber}</p>

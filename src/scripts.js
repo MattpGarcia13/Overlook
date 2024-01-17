@@ -108,13 +108,13 @@ const postRequest = (url, number, bookDate) => {
 
 function postBooking(event) {
     let currentbookedRoom = event.target.closest('.booking-book-card');
-    
+
     if (currentbookedRoom) {
         const roomNumberElement = currentbookedRoom.querySelector('#room-number');
         if (roomNumberElement) {
             const roomNumber = roomNumberElement.textContent.trim().replace('Room Number: ', '');
             postRequest('http://localhost:3001/api/v1/bookings', roomNumber, bookedDate)
-            
+
         } else {
             console.error('Room number element not found in the selected room card.');
         }
@@ -159,7 +159,6 @@ const toggleBookingsSection = (tabName) => {
 }
 
 export const findCustomerRooms = (customerBookings) => {
-
     customerBookings.forEach(booking => {
         rooms.map(room => {
             if (room.number === booking.roomNumber) {
@@ -167,18 +166,15 @@ export const findCustomerRooms = (customerBookings) => {
             }
         })
     })
-
     return customerRooms
-
 }
 
-function totalCostCalc() {
+export const totalCostCalc = () => {
     return customerRooms.reduce((acc, room) => {
         console.log(room.costPerNight)
         acc += room.costPerNight
         return acc
     }, 0)
-   
 }
 
 export const displayInfoProper = () => {

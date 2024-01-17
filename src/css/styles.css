@@ -15,17 +15,16 @@
 body {
   position: relative;
   min-height: 100vh;
-  position: relative;
   background: url('../images/stanleyhotel.png') no-repeat;
   background-size: cover;
   background-position: center;
 }
 
-.body-bookingBackground {
+/* .body-bookingBackground {
   background: url('../images/stanleyhotelhallway.png') no-repeat;
   background-size: cover;
   background-position: center;
-}
+} */
 
 
 
@@ -337,11 +336,6 @@ header {
   font-size: 1.8em;
 }
 
-.booking-card {
-  border-radius: 10px;
-  color: red;
-}
-
 #about {
   position: relative;
   top: 20vh;
@@ -352,4 +346,32 @@ header {
 
 .hidden {
   display: none;
+}
+
+.pastTripsCard {
+  display: flex;
+  margin-left: 20px;
+  color: blue;
+  font-size: 1.5em;
+}
+
+.room-card {
+  display: flex;
+  margin-left: 20px;
+  color: red;
+  font-size: 1.5em;
+}
+
+.newBookingsCard {
+  display: flex;
+  margin-left: 20px;
+  color: gold;
+  font-size: 1.5em;
+}
+
+.upcomingTripCards {
+  display: flex;
+  margin-left: 20px;
+  color: green;
+  font-size: 1.5em;
 }
