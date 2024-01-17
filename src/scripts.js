@@ -107,7 +107,7 @@ const postRequest = (url, number, bookDate) => {
 }
 
 function postBooking(event) {
-    let currentbookedRoom = event.target.closest('.booking-book-card');
+    let currentbookedRoom = event.target.closest('.newBookingsCard');
 
     if (currentbookedRoom) {
         const roomNumberElement = currentbookedRoom.querySelector('#room-number');
